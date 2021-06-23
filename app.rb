@@ -1,8 +1,8 @@
 # nums = [1,2,3,4,5,6,7,8,9]
-nums = [1,2,3,4,5]
-for_checking = [6,7,8,9]
+# nums = [1,2,3,4,5]
+# for_checking = [6,7,8,9]
 # for_checking = [1,2,3,4,5,6,7,8,9]
-p (nums & for_checking).empty?
+# p (nums & for_checking).empty?
 
 
 # p "pick a number between 1-9"
@@ -34,3 +34,18 @@ p (nums & for_checking).empty?
 #         checking_already_picked_nums()
 #     end
 # end
+
+def rematch
+    yes_or_no = ["y", "n"]
+    p "Would you like to start a new game? [y/n]"
+    choice = gets
+    choice = choice.chomp.downcase
+    if choice == yes_or_no[0]
+        p "rematch"
+    else
+        p "thanks for playing!"
+        return
+    end
+end
+
+rematch()

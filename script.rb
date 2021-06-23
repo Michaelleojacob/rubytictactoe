@@ -1,19 +1,19 @@
-require 'pry'
-
 class Tic_tac_toe
     @@nums = [1,2,3,4,5,6,7,8,9]
-    # @@nums = ["X","X","X",4,5,6,7,8,9]
     @@for_checking = [1,2,3,4,5,6,7,8,9]
-    @@game_state = true
-    
-    def initialize(first_player, second_player)
-        @@first_player = first_player
-        @@second_player = second_player
+    @@game_in_progress = true
+    @@did_game_end = false
+
+    def self.display_rows(arr)
+        p "#{arr[0]} #{arr[1]} #{arr[2]}"
+        p "#{arr[3]} #{arr[4]} #{arr[5]}"
+        p "#{arr[6]} #{arr[7]} #{arr[8]}"
     end
+    display_rows(@@nums)
     
     def self.end_game(player)
         p "#{player} wins"
-        return @@game_state = false
+        return @@game_in_progress = false
     end
 
     def self.check_for_win_conditions(player)
@@ -35,16 +35,9 @@ class Tic_tac_toe
             end_game(player)
         elsif (@@nums & @@for_checking).empty?
             p "it's a tie"
-            return @@game_state = false
+            return @@game_in_progress = false
         end
     end
-
-    def self.display_rows(arr)
-        p "#{arr[0]} #{arr[1]} #{arr[2]}"
-        p "#{arr[3]} #{arr[4]} #{arr[5]}"
-        p "#{arr[6]} #{arr[7]} #{arr[8]}"
-    end
-    display_rows(@@nums)
     
     def self.checking_already_picked_nums(player)
         p "player '#{player}' pick a number: #{@@nums & @@for_checking}"
@@ -70,27 +63,36 @@ class Tic_tac_toe
         checking_already_picked_nums("O")
     end
 
-    # for i in 0..@@nums.length - 1
-    #     check_for_win_conditions("X")
-    #     check_for_win_conditions("O")
-    #     i.even? ? player_one_picks : player_two_picks
-    # end
+    def self.rematch
+        if @@did_game_end == true
+            yes_or_no = ["y", "n"]
+            p "Would you like to start a new game? [y/n]"
+            choice = gets
+            choice = choice.chomp.downcase
+            if choice == yes_or_no[0]
+                @@game_in_progress = true
+                @@did_game_end = false
+                @@nums = [1,2,3,4,5,6,7,8,9]
+                display_rows(@@nums)
+                run_game()
+            else
+                p "thanks for playing!"
+            end
+        end
+    end
+    
     def self.run_game
         for i in 0..@@nums.length - 1
-            if @@game_state == true
-                i.even? ? player_one_picks : player_two_picks
+            if @@game_in_progress == true
+                i.even? ? player_one_picks() : player_two_picks()
             else
+                @@did_game_end = true
+                @@nums = [1,2,3,4,5,6,7,8,9]
+                rematch()
                 return
             end
         end
     end
     run_game()
+
 end
-
-
-
-fresh_game = Tic_tac_toe.new("Michael","Ivan")
-
-# p fresh_game
-
-
