@@ -1,4 +1,10 @@
-nums = [1,2,3,4,5,6,7,8,9]
+# nums = [1,2,3,4,5,6,7,8,9]
+nums = [1,2,3,4,5]
+for_checking = [6,7,8,9]
+# for_checking = [1,2,3,4,5,6,7,8,9]
+p (nums & for_checking).empty?
+
+
 # p "pick a number between 1-9"
 # first_player_picks = gets
 # p nums
